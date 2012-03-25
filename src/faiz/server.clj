@@ -7,7 +7,7 @@
 
 (defn -main [& m]
   (let [mode (keyword (or (first m) :dev))
-        port (Integer. (get (System/getenv) "PORT" "8090"))]
+        port (Integer. (get (System/getenv) "PORT" "9052"))]
     (cljs/start mode cljs-options)
     (server/start port {:mode mode
                         :ns 'faiz})))

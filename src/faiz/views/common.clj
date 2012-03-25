@@ -1,7 +1,7 @@
 (ns faiz.views.common
   (:require [noir.cljs.core :as cljs])
   (:use [noir.core :only [defpartial]]
-        [hiccup.page-helpers :only [include-css html5]]))
+        [hiccup.page-helpers :only [include-css include-js html5]]))
 
 (ns example.views.common
   (:require [noir.cljs.core :as cljs])
@@ -20,7 +20,6 @@
      [:div.nav-collapse
       [:ul.nav.pull-left]
       [:ul.nav.pull-right]]]]])
-
 
 (defpartial spinner []
   [:div.row
