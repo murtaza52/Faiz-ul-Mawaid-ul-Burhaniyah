@@ -1,0 +1,1 @@
+(ns faiz.models.user)
