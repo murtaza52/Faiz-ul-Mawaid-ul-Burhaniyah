@@ -65,7 +65,7 @@ selectors
 
 (def list-college {:name "college" :label-text "College" :options (sort ["D.Y.Patil College" "Allana Institute of Management and Science" "Fergusson College" "ILS Law College" "Modern College of Arts, Science & Commerce" "Ness Wadia College of Commerce" "Nowrosjee Wadia College" "Poona College of Arts Science & Commerce" "Symbiosis" "Sinhgad College"])})
 
-(def list-course {:name "course" :label-text "Course" :options (sort ["Commerce" "Engineering" "Law" "Medicine" "CA" "Computer Science" "Architecture"])})
+(def list-course {:name "course" :label-text "Course" :options (sort ["Commerce" "MBA" "Engineering" "Law" "Medicine" "CA" "Computer Science" "Architecture"])})
 
 
 ;;state
