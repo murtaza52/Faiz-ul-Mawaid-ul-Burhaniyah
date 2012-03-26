@@ -3,11 +3,6 @@
   (:use [noir.core :only [defpartial]]
         [hiccup.page-helpers :only [include-css include-js html5]]))
 
-(ns example.views.common
-  (:require [noir.cljs.core :as cljs])
-  (:use [noir.core :only [defpartial]]
-        [hiccup.page-helpers :only [include-css include-js html5]]))
-
 (defpartial navbar-top [title]
   [:div {:class "navbar navbar-fixed-top"}
    [:div.navbar-inner
