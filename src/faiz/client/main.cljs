@@ -38,8 +38,8 @@ selectors
 (def $main-remove ($ "div.container section#main"))
 
 ;;seq for creating elements
-(def links [{:text "Information Collection" :uri "#" :action "info"}
-            {:text "Faiz Registeration" :uri "#" :action "reg"}])
+(def links [{:text "Information Collection" :uri "#"}
+            {:text "Admin" :uri "#"}])
 
 (def inputs [{:name "name" :label-text "Full Name" :help-text "Please enter your full name as - First Middle Last"}
              {:name "ejamaat" :label-text "Ejamaat Number" :placeholder-text "Ejamaat #"}
