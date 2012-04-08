@@ -13,7 +13,8 @@
 ;; given host, given port
 ;
 (monger.core/connect! { :host "staff.mongohq.com" :port 10085})
-(monger.core/authenticate "fmb" "fmb" (.toCharArray "786110"))
+
+(monger.core/authenticate "faiz" "fmb" (.toCharArray "786110"))
 
 (monger.core/set-db! (monger.core/get-db "fmb"))
 

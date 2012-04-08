@@ -53,3 +53,12 @@
   [:div.control-group
    [:label.control-label {:for "name"} label-text]
    [:div.controls (for [o options] (selection (merge o {:name name :type "radio" :class class})))]])
+
+(defpartial textarea
+  [{:keys [name label-text placeholder-text input-class help-text] :or {input-class "input-xlarge" help-text nil}}]
+  (let [placeholder-text (if placeholder-text placeholder-text label-text)]
+  [:div.control-group
+   [:label.control-label {:for name} label-text]
+   [:div.controls
+    [:textarea {:type "text" :class input-class :id name :placeholder placeholder-text :rows 3 :style "margin-top: 0px; margin-bottom: 0px; height: 54px; margin-left: 0px; margin-right: 0px; width: 270px;"}]
+    (if help-text [:p.help-block help-text] nil)]]))
