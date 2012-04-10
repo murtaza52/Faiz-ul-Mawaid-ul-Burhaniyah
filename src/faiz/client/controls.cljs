@@ -1,12 +1,12 @@
 (ns faiz.client.controls
   (:require [crate.core :as crate])
-  (:use-macros [crate.macros :only [defpartial]]))
+  (:use-macros [crate.macros :only [defpartial defelem]]))
 
 (defpartial link [{:keys [text uri action]}]
   [:li [:a {:href uri :data-action action :id action} text]])
 
 (defpartial button [{:keys [text class]}]
-  [:button {:class class} text])
+  [:button {:class class :data-action-type "click" :data-action "click"} text])
 
 (defpartial form [legend-text buttons & controls]
   [:div.form-horizontal
@@ -26,7 +26,7 @@
   [:div.control-group
    [:label.control-label {:for name} label-text]
    [:div.controls
-    [:input {:type "text" :class input-class :id name :placeholder placeholder-text}]
+    [:input {:type "text" :class input-class :id name :placeholder placeholder-text :data-action-type "change" :data-action "change"}]
     (if help-text [:p.help-block help-text] nil)]]))
 
 (defpartial select-list [{:keys [name label-text options]}]
@@ -35,10 +35,6 @@
    [:div.controls
     [:select {:id name}
      (for [o options] [:option o])]]])
-
-;(defmacro defchrome [])
-
-
 
 (defn selection [{:keys [name value text type class]}]
   [:label {:class (str type " " class)}
