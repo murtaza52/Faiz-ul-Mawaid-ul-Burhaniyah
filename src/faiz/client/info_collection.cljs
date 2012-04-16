@@ -1,16 +1,13 @@
 (ns faiz.client.info_collection
   (:require [crate.core :as crate]
             [faiz.client.controls :as controls]
-            [waltz.state :as state]
-            [fetch.lazy-store :as store]
-            [fetch.remotes :as remotes]
             [faiz.client.options :as opt]
-            [faiz.client.bindings :as bd])
+            [faiz.client.bindings :as bd]
+            [faiz.client.core :as core])
   (:use [jayq.core :only [$ append bind data delegate find show hide remove]]
         [waltz.state :only [transition]])
   (:use-macros [crate.macros :only [defpartial]]
-               [waltz.macros :only [in out defstate deftrans]])
-  (:require-macros [fetch.macros :as fm]))
+               [waltz.macros :only [in out defstate deftrans]]))
 
 ;;util functions
 (defn appends [$elem content partial]
@@ -20,11 +17,8 @@
 (def form-legend "Please Enter your Information")
 
 ;selectors
-(def $topbar-nav ($ "div.navbar.navbar-fixed-top ul.nav.pull-left"))
-(def $topbar-brand ($ "div.navbar.navbar-fixed-top a.brand"))
-(def $nav-links ($ "div.navbar.navbar-fixed-top ul.nav a"))
 (def $main-add ($ "div.container div#content"))
-(def $main-remove ($ "div.container section#main"))
+(defn main-remove [] (remove ($ "div.container section#main")))
 
 ;;seq for creating elements
 (def links [{:text "Information Collection" :uri "#"}
@@ -36,9 +30,9 @@
              {:name "email" :label-text "Email Address"}
              {:name "watan" :label-text "Watan" :placeholder-text "Watan"}])
 
-(def textboxes [{:name "name" :label-text "Full Name" :help-text "Please enter your full name as - First Middle Last"}])
+(def textboxes [{:name "address" :label-text "Address" :help-text "Please enter your full residential address, with landmarks."}])
 
-(def buttons [{:text "Save changes" :class "btn btn-primary"}
+(def buttons [{:text "Save changes" :class "btn btn-primary" :action "save-info" :id "save-info-form"}
               {:text "Cancel" :class "btn"}])
 
 (def thaali-options {:name "thaali" :label-text "Faiz ul Mawaid ul Burhaniyah Thaali Status"
@@ -52,28 +46,29 @@
                      [{:value "male" :text "Male"}
                       {:value "female" :text "Female"}]})
 
-(def list-area {:name "area" :label-text "Area of Residence in Pune" :options (sort opt/areas)})
+(def list-area {:name "area" :label-text "Area of Residence" :options (sort opt/areas)})
 
 (def list-college {:name "college" :label-text "College" :options (sort opt/colleges)})
 
 (def list-course {:name "course" :label-text "Course" :options (sort opt/courses)})
 
+
+(defmethod bd/actions :save-info [{:keys [group-id]}]
+  (transition core/app :create-new-user (bd/get-fields group-id)))
+
 (defn create-info-collection-page
   []
-  (appends $topbar-nav links controls/link)
-  (remove $main-remove)
   (append $main-add (controls/form
+                     "info-collection"
                      form-legend
                      (map #(controls/button %) buttons)
                      (map #(controls/text-input %) inputs)
-                     (map #(controls/textarea %) textboxes)
                      (controls/select-list list-area)
+                     (map #(controls/textarea %) textboxes)
                      (controls/select-list list-college)
                      (controls/select-list list-course)
                      (controls/radio-buttons thaali-options)
                      (controls/radio-buttons gender-options))))
 
 
-  
 
-(bd/init-page)

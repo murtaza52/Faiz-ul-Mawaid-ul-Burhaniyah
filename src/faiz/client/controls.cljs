@@ -3,17 +3,17 @@
   (:use-macros [crate.macros :only [defpartial defelem]]))
 
 (defpartial link [{:keys [text uri action]}]
-  [:li [:a {:href uri :data-action action :id action} text]])
+  [:li [:a {:href uri :data-action action} text]])
 
-(defpartial button [{:keys [text class]}]
-  [:button {:class class :data-action-type "click" :data-action "click"} text])
+(defpartial button [{:keys [text class action id]}]
+  [:button {:class class :data-action-type "click" :data-action action :id id} text])
 
-(defpartial form [legend-text buttons & controls]
-  [:div.form-horizontal
+(defpartial form [id legend-text buttons & controls]
+  [:section#main [:div.form-horizontal {:data-form-id id}
    [:fieldset [:legend legend-text]
     (flatten controls)
     [:div.form-actions
-    buttons]]])
+    buttons]]]])
 
 (defn chrome [{:keys [name label-text controls]}]
   [:div.control-group
@@ -26,19 +26,19 @@
   [:div.control-group
    [:label.control-label {:for name} label-text]
    [:div.controls
-    [:input {:type "text" :class input-class :id name :placeholder placeholder-text :data-action-type "change" :data-action "change"}]
+    [:input {:type "text" :class input-class :id name :placeholder placeholder-text :data-action-type "change"}]
     (if help-text [:p.help-block help-text] nil)]]))
 
 (defpartial select-list [{:keys [name label-text options]}]
   [:div.control-group
    [:label.control-label {:for name} label-text]
    [:div.controls
-    [:select {:id name}
+    [:select {:id name :data-action-type "change"}
      (for [o options] [:option o])]]])
 
 (defn selection [{:keys [name value text type class]}]
   [:label {:class (str type " " class)}
-   [:input {:id value :type type :name name :value value}] text])
+   [:input {:id name :type type :name name :value value :data-action-type "change"}] text])
 
 (defpartial checkboxes [{:keys [name label-text options class]}]
   [:div.control-group
@@ -56,5 +56,11 @@
   [:div.control-group
    [:label.control-label {:for name} label-text]
    [:div.controls
-    [:textarea {:type "text" :class input-class :id name :placeholder placeholder-text :rows 3 :style "margin-top: 0px; margin-bottom: 0px; height: 54px; margin-left: 0px; margin-right: 0px; width: 270px;"}]
+    [:textarea {:type "text" :class input-class :id name :placeholder placeholder-text :data-action-type "change"
+                :rows 3 :style "margin-top: 0px; margin-bottom: 0px; height: 54px; margin-left: 0px; margin-right: 0px; width: 270px;"}]
     (if help-text [:p.help-block help-text] nil)]]))
+
+(defpartial hero-unit [{:keys [h p]}]
+  [:div.hero-unit
+   [:h1 h]
+   [:p p]])
