@@ -12,7 +12,7 @@
                  [noir "1.3.0-beta2"]
                  [com.novemberain/monger "1.0.0-SNAPSHOT"]
                  [waltz "0.1.0-SNAPSHOT"]
-                 [com.novemberain/monger "1.0.0-beta2"]
+                 [com.novemberain/monger "1.0.0-beta4"]
                  [ibdknox/ring-gzip-middleware "0.1.1"]
                  [congomongo "0.1.9-SNAPSHOT"]
                  [midje "1.3.2-SNAPSHOT"]]

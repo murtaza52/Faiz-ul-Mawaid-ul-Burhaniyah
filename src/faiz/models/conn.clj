@@ -8,23 +8,18 @@
   []
   @connected)
 
-(comment
-  (defn connect!
-  [{:keys [host port db]}]
+(defn connect!
+  [uri]
   (when-not (connected?)
     (do
-      (monger.core/connect! {:host host :port port})
-      (monger.core/set-db! (monger.core/get-db db))
+      (monger.core/connect-via-uri! uri)
       (monger.core/set-default-write-concern! WriteConcern/SAFE)
       (reset! connected true))))
 
-(defn- authenticate!
-  [{:keys [db uname pwd]}]
-  (when (connected?)
-    (monger.core/authenticate db uname (.toCharArray pwd))))
-)
+(comment
 
-(defn- connect!
+  ;congomongo connection and authentication
+  (defn- connect!
   [{:keys [db host port]}]
   (when-not (connected?)
     (let [conn (make-connection db :host host :port port)]
@@ -41,3 +36,12 @@
   (do
     (connect! params)
     (authenticate! params)))
+
+(defn- authenticate!
+  "Monger authentication with password"
+  [{:keys [db uname pwd]}]
+  (when (connected?)
+    (monger.core/authenticate db uname (.toCharArray pwd))))
+)
+
+
