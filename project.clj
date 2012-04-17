@@ -3,7 +3,7 @@
   :url "http://exampl.com/FIXME"
   :plugins [[lein-cljsbuild "0.1.3"]
             [lein-pprint "1.0.0"]
-            [lein-swank "1.4.3"]]
+            [lein-swank "1.4.4"]]
   :dependencies [[org.clojure/clojure "1.3.0"]
                  [noir-cljs "0.3.0"]
                  [jayq "0.1.0-alpha1"]
