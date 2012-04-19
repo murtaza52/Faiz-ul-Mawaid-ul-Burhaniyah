@@ -1,9 +1,11 @@
 (defproject faiz "0.1.0-SNAPSHOT"
   :description "FIXME: write this!"
   :url "http://exampl.com/FIXME"
-  :plugins [[lein-cljsbuild "0.1.3"]
-            [lein-pprint "1.0.0"]
-            [lein-swank "1.4.4"]]
+  :plugins [[lein-difftest "1.3.7"]
+                  [lein-marginalia "0.7.0"]
+                  [lein-pprint "1.1.1"]
+                  [lein-swank "1.4.4"]
+                  [lein-ring "0.6.4"]]
   :dependencies [[org.clojure/clojure "1.3.0"]
                  [noir-cljs "0.3.0"]
                  [jayq "0.1.0-alpha1"]
@@ -14,7 +16,8 @@
                  [waltz "0.1.0-SNAPSHOT"]
                  [com.novemberain/monger "1.0.0-beta4"]
                  [ibdknox/ring-gzip-middleware "0.1.1"]
-                 [congomongo "0.1.9-SNAPSHOT"]
                  [midje "1.3.2-SNAPSHOT"]]
   :cljsbuild {:builds [{}]}
-  :main ^{:skip-aot true} faiz.server)
+  :main ^{:skip-aot true} faiz.server
+  :min-lein-version "2.0.0"
+  :ring {:handler faiz.server/handler})

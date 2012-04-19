@@ -1,7 +1,6 @@
 (ns faiz.models.conn
   (:require [monger core util])
-  (:import [com.mongodb WriteConcern])
-  (:use somnium.congomongo))
+  (:import [com.mongodb WriteConcern]))
 
 (def connected (atom false))
 (defn connected?

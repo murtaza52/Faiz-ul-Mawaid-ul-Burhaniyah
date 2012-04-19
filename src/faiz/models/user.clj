@@ -2,8 +2,7 @@
   (:require [monger.collection :as mc]
             [faiz.models.conn :as conn]
             [monger.query :as q])
-  (:use [monger.operators])
-  (:use somnium.congomongo))
+  (:use [monger.operators]))
 
 (comment (defn connection-string {:host "staff.mongohq.com"
                          :port 10079
@@ -19,7 +18,7 @@
 
 (def user-coll "test-users")
 
-;(conn/connect! connection-string)
+(conn/connect! connection-string)
 
 (defn new-doc
   [coll doc]
