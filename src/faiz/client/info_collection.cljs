@@ -54,6 +54,7 @@
 
 
 (defmethod bd/actions :save-info [{:keys [group-id]}]
+  (js/alert "hi")
   (transition core/app :create-new-user (bd/get-fields group-id)))
 
 (defn create-info-collection-page
