@@ -5,11 +5,14 @@
             [ring.middleware.gzip :as gzip]
             [faiz.views.main :as main]
             [faiz.views.user :as user]
-            [faiz.views.common :as cm]))
+            [faiz.views.common :as cm]
+            [dieter.core :as dt]))
 
 (server/load-views-ns 'faiz.views)
 
 (server/add-middleware remote/wrap-remotes)
+
+(server/add-middleware dt/asset-pipeline config-options)
 
 (server/add-middleware gzip/wrap-gzip)
 

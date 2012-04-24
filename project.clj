@@ -16,7 +16,8 @@
                  [waltz "0.1.0-SNAPSHOT"]
                  [com.novemberain/monger "1.0.0-beta4"]
                  [ibdknox/ring-gzip-middleware "0.1.1"]
-                 [midje "1.3.2-SNAPSHOT"]]
+                 [midje "1.3.2-SNAPSHOT"]
+                 [dieter "0.2.0"]]
   :cljsbuild {:builds [{}]}
   :main ^{:skip-aot true} faiz.server
   ;:min-lein-version "2.0.0"
