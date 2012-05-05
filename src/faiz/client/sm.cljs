@@ -35,7 +35,7 @@
   (state/set app :message-page "Information for the submitted ejamaat already exists. Thanks for visiting us again."))
 
 (deftrans app :create-new-user [user]
-  (fm/letrem [resp (add-user user)]
+  (fm/letrem [resp (new-user user)]
              (if (:status resp)
                (transition app :user-created-successfully)
                (transition app :user-created-error))))

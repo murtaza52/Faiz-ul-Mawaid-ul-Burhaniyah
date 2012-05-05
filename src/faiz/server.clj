@@ -1,20 +1,21 @@
 (ns faiz.server
   (:require [noir.server :as server]
             [noir.cljs.core :as cljs]
-            [noir.fetch.remotes :as remote]))
+            [noir.fetch.remotes :as remote]
+            [faiz.views.main :as main]
+            [faiz.views.user :as user]
+            [faiz.views.common :as cm]))
 
 (server/load-views-ns 'faiz.views)
 
 (server/add-middleware remote/wrap-remotes)
 
-(def options {:mode :dev :ns 'faiz})
-
 (def cljs-options {:advanced {:externs ["externs/jquery.js"]}})
 
-(def handler (server/gen-handler options))
+(def handler (server/gen-handler {:mode :dev :ns 'faiz}))
 
 (defn -main [& m]
   (let [mode (keyword (or (first m) :dev))
         port (Integer. (get (System/getenv) "PORT" "9052"))]
     (cljs/start mode cljs-options)
-    (server/start port options)))
+    (server/start port {:mode mode :ns 'faiz})))
