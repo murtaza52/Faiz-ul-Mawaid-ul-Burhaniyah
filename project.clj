@@ -6,7 +6,7 @@
                   [lein-pprint "1.1.1"]
                   [lein-swank "1.4.4"]
                   [lein-ring "0.6.4"]]
-  :dependencies [[org.clojure/clojure "1.3.0"]
+  :dependencies [[org.clojure/clojure "1.4.0"]
                  [noir-cljs "0.3.0"]
                  [jayq "0.1.0-alpha1"]
                  [fetch "0.1.0-alpha2"]

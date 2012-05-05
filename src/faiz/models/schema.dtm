@@ -1,5 +1,6 @@
 [
- 
+ ;;Schema for Faiz
+
  {:db/id #db/id[:db.part/db]
   :db/ident :person/first-name
   :db/valueType :db.type/string
