@@ -1,0 +1,108 @@
+[
+ 
+ {:db/id #db/id[:db.part/db]
+  :db/ident :person/first-name
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "First Name"
+  :db.install/_attribute :db.part/db}
+
+ {:db/id #db/id[:db.part/db]
+  :db/ident :person/middle-name
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "Middle Name"
+  :db.install/_attribute :db.part/db}
+
+ {:db/id #db/id[:db.part/db]
+  :db/ident :person/last-name
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/index true    
+  :db/doc "Last Name"
+  :db.install/_attribute :db.part/db}
+
+ {:db/id #db/id[:db.part/db]
+  :db/ident :person/ejamaat
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one
+  :db/index true
+  :db/unique :db.unique/identity
+  :db/doc "Ejamaat Number"
+  :db.install/_attribute :db.part/db}
+
+ {:db/id #db/id[:db.part/db]
+  :db/ident :person/mobile
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/many
+  :db/index true
+  :db/doc "Mobile Number"
+  :db.install/_attribute :db.part/db}
+
+ {:db/id #db/id[:db.part/db]
+  :db/ident :person/res-area
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "Residence Area"
+  :db.install/_attribute :db.part/db}
+
+ {:db/id #db/id[:db.part/db]
+  :db/ident :person/address
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "Address"
+  :db/fulltext true
+  :db.install/_attribute :db.part/db}
+
+ {:db/id #db/id[:db.part/db]
+  :db/ident :person/college
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "College"
+  :db.install/_attribute :db.part/db}
+
+ {:db/id #db/id[:db.part/db]
+  :db/ident :person/course
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "Course"
+  :db.install/_attribute :db.part/db}
+
+ {:db/id #db/id[:db.part/db]
+  :db/ident :person/email
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "Email Address"
+  :db.install/_attribute :db.part/db}
+
+ {:db/id #db/id[:db.part/db]
+  :db/ident :person/watan
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "Watan"
+  :db.install/_attribute :db.part/db}
+
+ {:db/id #db/id[:db.part/db]
+  :db/ident :person/thaali-status
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "Thaali Status"
+  :db.install/_attribute :db.part/db}
+
+ {:db/id #db/id[:db.part/db]
+  :db/ident :person/gender
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "Gender"
+  :db.install/_attribute :db.part/db}
+
+ ;; person/thaali-status enum values
+ [:db/add #db/id[:db.part/user] :db/ident :person.thaali-status/current]
+ [:db/add #db/id[:db.part/user] :db/ident :person.thaali-status/stopped]
+ [:db/add #db/id[:db.part/user] :db/ident :person.thaali-status/applied]
+ [:db/add #db/id[:db.part/user] :db/ident :person.thaali-status/unable]
+
+ ;; person/gender enum values
+ [:db/add #db/id[:db.part/user] :db/ident :person.gender/male]
+ [:db/add #db/id[:db.part/user] :db/ident :person.gender/female]
+ ]
