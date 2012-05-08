@@ -6,7 +6,7 @@
             [faiz.client.core :as core])
   (:use [jayq.core :only [$ append bind data delegate find show hide remove]]
         [waltz.state :only [transition]])
-  (:use-macros [crate.macros :only [defpartial]]
+  (:use-macros [crate.def-macros :only [defpartial]]
                [waltz.macros :only [in out defstate deftrans]]))
 
 (def $main-add ($ "div.container div#content"))

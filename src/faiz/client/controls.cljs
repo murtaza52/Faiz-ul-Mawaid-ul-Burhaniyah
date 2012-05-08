@@ -1,6 +1,6 @@
 (ns faiz.client.controls
   (:require [crate.core :as crate])
-  (:use-macros [crate.macros :only [defpartial defelem]]))
+  (:use-macros [crate.def-macros :only [defpartial defelem]]))
 
 (defpartial link [{:keys [text uri action]}]
   [:li [:a {:href uri :data-action action} text]])

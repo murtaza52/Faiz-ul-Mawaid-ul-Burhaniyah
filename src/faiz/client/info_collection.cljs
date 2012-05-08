@@ -6,13 +6,12 @@
             [faiz.client.core :as core])
   (:use [jayq.core :only [$ append bind data delegate find show hide remove]]
         [waltz.state :only [transition]])
-  (:use-macros [crate.macros :only [defpartial]]
+  (:use-macros [crate.def-macros :only [defpartial]]
                [waltz.macros :only [in out defstate deftrans]]))
 
 ;;util functions
 (defn appends [$elem content partial]
   (doseq [c content] (append $elem (partial c))))
-
 ;;configurable data
 (def form-legend "Please Enter your Information")
 

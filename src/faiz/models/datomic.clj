@@ -8,17 +8,43 @@
   (:use [datomic.api :only [q db] :as d])
   (:use [clojure.pprint]))
 
-;; store database uri
 (def uri "datomic:dev://localhost:4334/faiz")
+(def partition :person)
+
+(def conn (atom nil))
+
+(defn connect [uri]
+  (if-not @conn
+    (swap! conn (fn [_](d/connect uri)))))
+
+(defn add-partition [partition kvs]
+  (into {} (for [[k v] kvs] [(->> k name (str partition "/") keyword) v])))
+
+(defn get-entity [id]
+  (-> conn db (d/entity id)))
 
 ;; create database
 (d/create-database uri)
 
-;; connect to database
-(def conn (d/connect uri))
+;@(d/transact conn [{:db/id #db/id[:db.part/user] :person/first-name "Murtaza" :person/ejamaat 20341280}])
+
+
+(def user-map { :person/first-name "Murtaza" :person/ejamaat 20341280})
+
+(defn upsert-person [kvs]
+  @(d/transact conn ([(merge {:db/id #db/id[:db.part/user]} kvs)]))
+  let ([v (q '[:find ?v :where [_ :person/version ?v]] (db conn))
+        ver (read-str v)]))
+
+(def new-schema [ {:db/id #db/id[:db.part/db]
+  :db/ident :person/version
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "Versions"
+  :db.install/_attribute :db.part/db}])
 
 ;; parse schema dtm file
-(def schema-tx (read-string (slurp "schema.dtm")))
+(def schema-tx (read-string (slurp "/home/murtaza/workspace/noir-cljs/faiz/src/faiz/models/schema.dtm")))
 
 ;; display first statement
 (first schema-tx)
