@@ -15,7 +15,7 @@
                  [noir-cljs "0.3.2" :exclusions [org.clojure/clojure]]
                  [jayq "0.1.0-alpha3"]
                  [fetch "0.1.0-alpha2"]
-                 [crate "0.2.0-alpha2"]
+                 [crate "0.1.0-alpha3"]
                  [noir "1.3.0-beta4"] 
                  [com.novemberain/monger "1.0.0-beta4"]
                  [waltz "0.1.0-alpha1"]
