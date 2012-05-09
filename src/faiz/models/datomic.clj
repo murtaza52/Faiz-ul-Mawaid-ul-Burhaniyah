@@ -5,11 +5,11 @@
 ;; directory from your editor, based on your configuration.
 
 (ns faiz.models.datomic
-  (:use [datomic.api :only [q db] :as d])
+  (:use [datomic.api :as d])
   (:use [clojure.pprint]))
 
 (def uri "datomic:dev://localhost:4334/faiz")
-(def partition :person)
+(def partition "person")
 
 (def conn (atom nil))
 
@@ -17,11 +17,38 @@
   (if-not @conn
     (swap! conn (fn [_](d/connect uri)))))
 
-(defn add-partition [partition kvs]
-  (into {} (for [[k v] kvs] [(->> k name (str partition "/") keyword) v])))
+(defn prepend-keys [s kvs]
+  "Given a hash-map and a string, prepends the keys with the string"
+  (into {} (for [[k v] kvs] [(->> k name (str s) keyword) v])))
+
+(defn add-part [partition kvs]
+  (prepend-keys (str partition "/") kvs))
+
+(defn query [qu & inputs]
+  (apply d/q qu (d/db @conn) inputs))
+
+(defn trans [tr]
+  @(d/transact @conn tr))
 
 (defn get-entity [id]
-  (-> conn db (d/entity id)))
+  (-> @conn d/db (d/entity id)))
+
+(def find-by-ejamaat '[:find ?i
+                       :in $ ?e
+                       :where [?i :person/ejamaat ?e]])
+
+(defn find-user
+  [e]
+  (let [res (query find-by-ejamaat e)
+        id (-> res seq ffirst)
+        user (get-entity id)] user))
+
+(defn new-user
+  [user]
+  (if-let [u (-> user :ejamaat find-user)]
+    {:status false :reason :user-exists :user u}
+    (let [u (add-part partition user) tr [(merge {:db/id #db/id[:db.part/user]} u)] res (trans tr)]
+      {:status res})))
 
 ;; create database
 (d/create-database uri)

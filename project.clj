@@ -6,13 +6,13 @@
   :description "FIXME: write this!"
   :url "http://exampl.com/FIXME"
   :plugins [[lein-difftest "1.3.7"]
-                  [lein-marginalia "0.7.0"]
-                  [lein-pprint "1.1.1"]
-                  [lein-swank "1.4.4"]
-                  [lein-ring "0.6.4"]
-                  [clj-ns-browser "1.2.0"]]
+            [lein-marginalia "0.7.0"]
+            [lein-pprint "1.1.1"]
+            [lein-swank "1.4.4"]
+            [lein-ring "0.6.4"]
+            [clj-ns-browser "1.2.0"]]
   :dependencies [[org.clojure/clojure "1.4.0"]
-                 [noir-cljs "0.3.0" :exclusions [org.clojure/clojure]]
+                 [noir-cljs "0.3.2" :exclusions [org.clojure/clojure]]
                  [jayq "0.1.0-alpha3"]
                  [fetch "0.1.0-alpha2"]
                  [crate "0.2.0-alpha2"]
@@ -22,5 +22,4 @@
                  [com.datomic/datomic "0.1.3065"]]
   :cljsbuild {:builds [{}]}
   :main ^{:skip-aot true} faiz.server
-  ;;:min-lein-version "2.0.0"
   :ring {:handler faiz.server/handler})
