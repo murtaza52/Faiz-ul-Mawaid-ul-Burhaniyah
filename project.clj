@@ -22,4 +22,6 @@
                  [com.datomic/datomic "0.1.3065"]]
   :cljsbuild {:builds [{}]}
   :main ^{:skip-aot true} faiz.server
-  :ring {:handler faiz.server/handler})
+  :ring {:handler faiz.server/handler}
+  ;;:jvm-opts ["-Xms64m -Xmx256m"]
+  )
