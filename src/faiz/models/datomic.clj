@@ -6,9 +6,21 @@
 
 (ns faiz.models.datomic
   (:use [datomic.api :as d])
-  (:use [clojure.pprint]))
+  (:use [clojure.pprint])
+  (:use [clojure.string :as str]))
 
-(def uri "datomic:dev://localhost:4334/faiz")
+(def datomic-db-name "tms-dev")
+
+(def datomic-uri "datomic:ddb://datomic/[db-name]?aws_access_key_id=AKIAIQELTBFPMN5ZMSHA&aws_secret_key=uBh31pqDVLdGazwY9CPInkEfsNg39E+nHcgBUeGp")
+
+(defn get-uri
+  ([] (get-uri datomic-uri datomic-db-name))
+  ([uri db-name] (str/replace uri "[db-name]" db-name)))
+
+;; create database
+(d/create-database (get-uri))
+
+;(def uri "datomic:dev://localhost:4334/faiz")
 (def partition "person")
 
 (def conn (atom nil))
@@ -50,18 +62,10 @@
     (let [u (add-part partition user) tr [(merge {:db/id #db/id[:db.part/user]} u)] res (trans tr)]
       {:status res})))
 
-;; create database
-(d/create-database uri)
-
 ;@(d/transact conn [{:db/id #db/id[:db.part/user] :person/first-name "Murtaza" :person/ejamaat 20341280}])
 
 
 (def user-map { :person/first-name "Murtaza" :person/ejamaat 20341280})
-
-(defn upsert-person [kvs]
-  @(d/transact conn ([(merge {:db/id #db/id[:db.part/user]} kvs)]))
-  let ([v (q '[:find ?v :where [_ :person/version ?v]] (db conn))
-        ver (read-str v)]))
 
 (def new-schema [ {:db/id #db/id[:db.part/db]
   :db/ident :person/version

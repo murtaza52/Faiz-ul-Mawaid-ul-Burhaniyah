@@ -1,10 +1,10 @@
-(ns example.client.sm
+(ns faiz.client.sm
   (:require [waltz.state :as state]
             [fetch.remotes :as remotes]
-            [faiz.client.info_collection :as info]
+            [faiz.client.info-collection :as info]
             [faiz.client.bindings :as bd]
             [faiz.client.msg :as msg]
-            [faiz.client.office_screen :as os]
+            [faiz.client.office-screen :as os]
             [faiz.client.tb :as tb])
   (:use-macros [waltz.macros :only [in out defstate deftrans]])
   (:use [waltz.state :only [transition]]
