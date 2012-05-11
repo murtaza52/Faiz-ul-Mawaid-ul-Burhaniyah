@@ -23,5 +23,4 @@
   :cljsbuild {:builds [{}]}
   :main ^{:skip-aot true} faiz.server
   :ring {:handler faiz.server/handler}
-  ;;:jvm-opts ["-Xms64m -Xmx256m"]
-  )
+  :jvm-opts ["-Xms64m -Xmx256m"])
