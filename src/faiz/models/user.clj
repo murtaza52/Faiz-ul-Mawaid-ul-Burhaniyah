@@ -18,7 +18,7 @@
 
 (def user-coll "test-users")
 
-(conn/connect! connection-string)
+;(conn/connect! connection-string)
 
 (defn new-doc
   [coll doc]

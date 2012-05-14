@@ -1,10 +1,9 @@
 (ns faiz.client.sm
   (:require [waltz.state :as state]
             [fetch.remotes :as remotes]
-            [faiz.client.info-collection :as info]
-            [faiz.client.bindings :as bd]
+            [faiz.client.infoCollection :as info]
             [faiz.client.msg :as msg]
-            [faiz.client.office-screen :as os]
+            [faiz.client.officeScreen :as os]
             [faiz.client.tb :as tb])
   (:use-macros [waltz.macros :only [in out defstate deftrans]])
   (:use [waltz.state :only [transition]]
@@ -14,8 +13,7 @@
 (defstate app :student-info
   (in [] (tb/init))
   (in [] (info/main-remove))
-  (in [] (info/create-info-collection-page))
-  (in [] (bd/init-page)))
+  (in [] (info/create-info-collection-page)))
 
 (defstate app :message-page
   (in [msg](info/main-remove)

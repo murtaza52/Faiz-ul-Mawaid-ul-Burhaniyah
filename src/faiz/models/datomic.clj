@@ -1,3 +1,49 @@
+(ns faiz.models.datomic
+  (:use [datomic.api :as d])
+  (:use [clojure.pprint]))
+
+(def conn (atom nil))
+
+(defn conn! [uri]
+  (if-not @conn
+    (swap! conn (fn [_](d/connect uri)))))
+
+(defn prepend-keys [s kvs]
+  "Given a hash-map and a string, prepends the keys with the string"
+  (into {} (for [[k v] kvs] [(->> k name (str s) keyword) v])))
+
+(defn add-part [partition kvs]
+  (prepend-keys (str partition "/") kvs))
+
+(defn query [qu & inputs]
+  (apply d/q qu (d/db @conn) inputs))
+
+(defn trans [tr]
+  @(d/transact @conn tr))
+
+(defn get-entity [id]
+  (-> @conn d/db (d/entity id)))
+
+(def find-by-ejamaat '[:find ?i
+                       :in $ ?e
+                       :where [?i :person/ejamaat ?e]])
+
+(defn find-user
+  [e]
+  (let [res (query find-by-ejamaat e)
+        id (-> res seq ffirst)
+        user (get-entity id)] user))
+
+(defn new-user
+  [user]
+  (if-let [u (-> user :ejamaat find-user)]
+    {:status false :reason :user-exists :user u}
+    (let [u (add-part partition user) tr [(merge {:db/id #db/id[:db.part/user]} u)] res (trans tr)]
+      {:status res})))
+
+
+(comment
+  
 ;; This file contains code examples for getting-started.html. They are
 ;; written in clojure, for use with Datomic's interactive repl. You can
 ;; start the repl by running 'bin/repl' from the datomic directory.
@@ -7,20 +53,26 @@
 (ns faiz.models.datomic
   (:use [datomic.api :as d])
   (:use [clojure.pprint])
-  (:use [clojure.string :as str]))
+  ;(:use [clojure.string :as str])
+  )
 
-(def datomic-db-name "tms-dev")
+(def datomic-db-name "faiz")
 
-(def datomic-uri "datomic:ddb://datomic/[db-name]?aws_access_key_id=AKIAIQELTBFPMN5ZMSHA&aws_secret_key=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")
+;(def datomic-uri "datomic:ddb://datomic/[db-name]?aws_access_key_id=AKIAIQELTBFPMN5ZMSHA&aws_secret_key=uBh31pqDVLdGazwY9CPInkEfsNg39E+nHcgBUeGp")
 
-(defn get-uri
-  ([] (get-uri datomic-uri datomic-db-name))
-  ([uri db-name] (str/replace uri "[db-name]" db-name)))
+(def uri "datomic:dev://localhost:4334/faiz")
+
+(comment
+;
+ ;(defn get-uri
+    ;;([] (get-uri datomic-uri datomic-db-name))
+    ;;([uri db-name] (str/replace uri "[db-name]" db-name))
+  ;)
+  )
 
 ;; create database
-(d/create-database (get-uri))
+;(d/create-database (get-uri))
 
-;(def uri "datomic:dev://localhost:4334/faiz")
 (def partition "person")
 
 (def conn (atom nil))
@@ -399,3 +451,5 @@
                       (.dbAfter report)
                       (.txData report)))))
 
+
+  )

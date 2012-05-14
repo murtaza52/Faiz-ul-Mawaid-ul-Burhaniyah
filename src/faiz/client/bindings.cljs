@@ -1,4 +1,5 @@
-(ns faiz.client.bindings
+(comment
+ (ns faiz.client.bindings
   (:require [jayq.core :as jq]
             [faiz.client.core :as core]
             [waltz.state :as state]
@@ -94,11 +95,4 @@
 
 (defn init-page []
   (set-delegates))
-
-
-
-
-
-
-
-
+  )

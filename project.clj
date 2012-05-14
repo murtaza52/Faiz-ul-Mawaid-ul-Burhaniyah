@@ -9,10 +9,9 @@
             [lein-marginalia "0.7.0"]
             [lein-pprint "1.1.1"]
             [lein-swank "1.4.4"]
-            [lein-ring "0.6.4"]
-            [clj-ns-browser "1.2.0"]]
+            [lein-ring "0.7.0"] 
+            [lein-cljsbuild "0.1.9"]]
   :dependencies [[org.clojure/clojure "1.4.0"]
-                 [noir-cljs "0.3.2" :exclusions [org.clojure/clojure]]
                  [jayq "0.1.0-alpha3"]
                  [fetch "0.1.0-alpha2"]
                  [crate "0.2.0-alpha2"]
@@ -20,7 +19,17 @@
                  [com.novemberain/monger "1.0.0-beta4"]
                  [waltz "0.1.0-alpha1"]
                  [com.datomic/datomic "0.1.3065"]]
-  :cljsbuild {:builds [{}]}
+  :cljsbuild {:repl-listen-port 9000
+              :builds [{:source-path "src/faiz/cl"
+                        :compiler {:output-to "resources/public/cljs/client.js"
+                                   :optimizations :whitespace
+                                   :pretty-print true}
+                        }]}
   :main ^{:skip-aot true} faiz.server
   :ring {:handler faiz.server/handler}
-  :jvm-opts ["-Xms64m -Xmx256m"])
+  :jvm-opts ["-Xmx256m"])
+
+
+ ;;:externs ["jquery-externs.js"]
+   ;;[noir-cljs "0.3.2"]
+;;[noir-cljs "0.3.2" :exclusions [org.clojure/clojure]]

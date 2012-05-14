@@ -1,8 +1,7 @@
 (ns faiz.client.tb
   (:require [crate.core :as crate]
             [faiz.client.controls :as cs]
-            [jayq.core :as jq]
-            [faiz.client.bindings :as bd]))
+            [jayq.core :as jq]))
 
 (def $topbar-nav (jq/$ "div.navbar.navbar-fixed-top ul.nav.pull-left"))
 (def $topbar-brand (jq/$ "div.navbar.navbar-fixed-top a.brand"))
@@ -22,5 +21,5 @@
   []
   (jq/append $topbar-nav ls))
 
-(defmethod bd/actions :to-office-screen []
+(defn to-office-screen []
   (transition core/app :to-office-screen))

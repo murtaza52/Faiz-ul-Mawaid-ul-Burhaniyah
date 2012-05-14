@@ -102,6 +102,7 @@
  [:db/add #db/id[:db.part/user] :db/ident :person.thaali-status/stopped]
  [:db/add #db/id[:db.part/user] :db/ident :person.thaali-status/applied]
  [:db/add #db/id[:db.part/user] :db/ident :person.thaali-status/unable]
+ [:db/add #db/id[:db.part/user] :db/ident :person.thaali-status/want] ;; still to add
 
  ;; person/gender enum values
  [:db/add #db/id[:db.part/user] :db/ident :person.gender/male]

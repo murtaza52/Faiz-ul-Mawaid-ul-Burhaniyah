@@ -1,7 +1,5 @@
 (ns faiz.client.main
-  (:require [noir.cljs.client.watcher :as watcher]
-            [clojure.browser.repl :as repl]
-            [crate.core :as crate]
+  (:require [crate.core :as crate]
             [faiz.client.controls :as controls]
             [waltz.state :as state]
             [fetch.lazy-store :as store]
@@ -18,8 +16,7 @@
 ;; Dev stuff
 ;;************************************************
 
-(watcher/init)
-(repl/connect "http://localhost:9000/repl")
+;(repl/connect "http://localhost:9000/repl")
 
 (state/set core/app :student-info)
 

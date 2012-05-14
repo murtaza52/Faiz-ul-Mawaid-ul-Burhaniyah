@@ -1,5 +1,4 @@
 (ns faiz.views.common
-  (:require [noir.cljs.core :as cljs])
   (:use [hiccup.def]
         [hiccup.page :only [include-css include-js html5]]
         [hiccup.element :only [javascript-tag]]))
@@ -35,7 +34,6 @@
     (include-css "/css/bootstrap.min.css")
     (include-css "/css/bootstrap-responsive.min.css")
     (include-css "/css/docs.css")
-    ;(cljs/include-scripts :with-jquery)
     ]
    [:body
     (navbar-top title)
@@ -43,7 +41,7 @@
      [:div#content
       [:section#main (spinner)]]]]
    (include-js "/js/jquery-1.7.1.min.js")
-   (cljs/include-scripts)
+   (include-js "/cljs/client.js")
    (include-css "/css/datepicker.css")
    (include-js "/js/bootstrap-datepicker.js")
    (include-js "/js/bootstrap.min.js")))
